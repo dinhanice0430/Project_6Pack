@@ -3,191 +3,275 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Gym Booking - Đăng ký, tạo kèo tập gym & Kiến thức Gym Pro">
-  <title>PRO FIT GYM & BOOKING 🏋️</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>GYM BROS - Không cần tập một mình</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- 1. NAVIGATION -->
-  <header class="navbar">
+  <!-- Header / Navigation -->
+  <header class="header">
     <div class="container nav-container">
-      <a class="logo" href="#">🏋️ PRO<span>FIT</span></a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#booking-section">Lịch Tập & Booking</a></li>
-          <li><a href="#knowledge">Kiến Thức Pro</a></li>
-          <li><a href="#admin-panel">Quản Trị (Admin)</a></li>
-        </ul>
+      <a href="#home" class="logo">
+        <i class="fa-solid fa-dumbbell"></i>
+        <span>GYM BROS</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="nav-item active"><i class="fa-solid fa-house"></i> Trang chủ</a>
+        <a href="#schedule" class="nav-item"><i class="fa-solid fa-calendar-days"></i> Lịch tập</a>
+        <a href="#members" class="nav-item"><i class="fa-solid fa-users"></i> Thành viên</a>
+        <a href="#stats" class="nav-item"><i class="fa-solid fa-chart-simple"></i> Thống kê</a>
+        <a href="#admin" class="nav-item"><i class="fa-solid fa-lock"></i> Admin</a>
       </nav>
-      <button id="createBtn" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Tạo Kèo Mới</button>
+      <div class="header-actions">
+        <a href="#schedule" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Đăng ký tập</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- 2. HERO SECTION (Sáng & Năng động) -->
-  <section class="hero">
-    <div class="container hero-content">
-      <span class="badge-hero">HỆ THỐNG BOOKING CHUYÊN NGHIỆP</span>
-      <h1>ĐĂNG KÝ LỊCH TẬP <br><span>KIẾN TẠO HÌNH THỂ</span></h1>
-      <p class="hero-text">Hệ thống đặt lịch tập chuyên sâu, kết nối PT cá nhân và phân tích kỹ thuật chuẩn y khoa. Cùng nhau tập luyện an toàn và hiệu quả.</p>
-      <div class="hero-btns">
-        <a href="#booking-section" class="btn btn-primary">Book Lịch Ngay</a>
-        <a href="#knowledge" class="btn btn-outline">Xem Kỹ Thuật</a>
-      </div>
-    </div>
-  </section>
+  <!-- Main Container (SPA Content) -->
+  <main class="main-content">
+    <!-- View: Home -->
+    <section id="view-home" class="view-section active">
+      <div class="container">
+        <div class="hero-card">
+          <span class="badge-accent"><i class="fa-solid fa-bolt"></i> Workout Together</span>
+          <h1 class="hero-title">GYM BROS</h1>
+          <p class="hero-subtitle">"Không cần tập một mình." Cùng nhau đốt mỡ, tăng cơ và bứt phá giới hạn mỗi ngày.</p>
+          <div class="hero-btns">
+            <a href="#schedule" class="btn btn-accent"><i class="fa-solid fa-calendar-check"></i> Xem lịch tập</a>
+            <a href="#schedule" class="btn btn-outline"><i class="fa-solid fa-user-plus"></i> Đăng ký buổi tập</a>
+          </div>
+        </div>
 
-  <main class="container">
-    
-    <!-- 3. KHU VỰC BOOKING CHUYÊN SÂU (Cho Học viên & Hội viên) -->
-    <section id="booking-section" class="section">
-      <div class="section-header">
-        <h2 class="section-title">Lịch Tập Đang Mở</h2>
-        <button id="resetBtn" class="btn btn-text"><i class="fa-solid fa-rotate-right"></i> Xóa bộ lọc</button>
-      </div>
-
-      <!-- Thống kê tổng quan -->
-      <div class="stats-board">
-        <div class="stat-box">
-          <i class="fa-solid fa-calendar-check stat-icon"></i>
-          <div><span id="totalSessions">0</span><p>Kèo đang mở</p></div>
+        <div class="stats-overview" id="homeStatsContainer">
+          <!-- Rendered via JS -->
         </div>
-        <div class="stat-box">
-          <i class="fa-solid fa-users stat-icon"></i>
-          <div><span id="totalMembers">0</span><p>Lượt đăng ký</p></div>
-        </div>
-        <div class="stat-box">
-          <i class="fa-solid fa-bolt stat-icon"></i>
-          <div><span id="todaySessions">0</span><p>Kèo hôm nay</p></div>
-        </div>
-      </div>
-
-      <!-- Thanh Tìm kiếm & Lọc -->
-      <div class="booking-toolbar">
-        <div class="search-wrap">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="searchInput" type="search" placeholder="Tìm theo PT, nhóm cơ, địa điểm...">
-        </div>
-        <div class="filters">
-          <select id="dateFilter">
-            <option value="all">Tất cả các ngày</option>
-          </select>
-          <select id="muscleFilter">
-            <option value="all">Tất cả nhóm cơ</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Khu vực render dữ liệu từ app.js -->
-      <div id="sessionList" class="session-grid"></div>
-      
-      <!-- Trạng thái trống -->
-      <div id="emptyState" class="empty-state hidden">
-        <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Empty" width="100">
-        <h3>Chưa có lịch tập phù hợp</h3>
-        <p>Thử thay đổi bộ lọc hoặc chủ động "Tạo Kèo Mới" nhé!</p>
       </div>
     </section>
 
-    <!-- 4. GIAO DIỆN QUẢN TRỊ (ADMIN PANEL) - Nâng cấp theo yêu cầu -->
-    <section id="admin-panel" class="section bg-light-gray">
-      <div class="section-header">
-        <h2 class="section-title"><i class="fa-solid fa-user-tie"></i> Bảng Điều Khiển Quản Trị Viên</h2>
-        <p>Khu vực dành riêng cho PT / Admin để quản lý, duyệt và chỉnh sửa lịch tập.</p>
-      </div>
-      
-      <div class="admin-table-container">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Thời gian</th>
-              <th>Lớp / Nhóm cơ</th>
-              <th>HLV / Người tạo</th>
-              <th>Số lượng (Slot)</th>
-              <th>Trạng thái</th>
-              <th>Thao tác (Admin)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Dữ liệu mẫu minh họa Admin -->
-            <tr>
-              <td><strong>18:30</strong><br><small>Hôm nay</small></td>
-              <td>Gánh Đùi (Squat Pro)</td>
-              <td>Coach Long</td>
-              <td><span class="slot-badge full">4/4 Full</span></td>
-              <td><span class="status-badge active">Đang mở</span></td>
-              <td class="action-btns">
-                <button class="btn-icon edit" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
-                <button class="btn-icon delete" title="Hủy lịch"><i class="fa-solid fa-trash"></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>19:00</strong><br><small>Ngày mai</small></td>
-              <td>Đẩy Ngực (Bench Press)</td>
-              <td>Gymer Tuấn</td>
-              <td><span class="slot-badge available">1/3 Trống</span></td>
-              <td><span class="status-badge active">Đang mở</span></td>
-              <td class="action-btns">
-                <button class="btn-icon edit" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
-                <button class="btn-icon delete" title="Hủy lịch"><i class="fa-solid fa-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- View: Schedule -->
+    <section id="view-schedule" class="view-section">
+      <div class="container">
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">Lịch Tập Của Nhóm</h2>
+            <p class="section-desc">Chọn buổi tập phù hợp và đăng ký trước khi hết slot.</p>
+          </div>
+          <div class="week-switcher">
+            <button class="btn btn-secondary btn-sm" id="btnPrevWeek"><i class="fa-solid fa-chevron-left"></i> Tuần trước</button>
+            <span class="current-week-label" id="weekLabel">Tuần này</span>
+            <button class="btn btn-secondary btn-sm" id="btnNextWeek">Tuần sau <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="schedule-grid" id="scheduleGrid">
+          <!-- Rendered via JS -->
+        </div>
       </div>
     </section>
 
-    <!-- 5. KIẾN THỨC GYM PRO (Giao diện Sáng, Dễ đọc) -->
-    <section id="knowledge" class="section">
-      <div class="section-header text-center">
-        <h2 class="section-title">Kiến Thức Tập Luyện Chuẩn Y Khoa</h2>
-      </div>
-
-      <div class="grid grid-2">
-        <div class="card premium-card">
-          <div class="card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="Squat">
+    <!-- View: Members -->
+    <section id="view-members" class="view-section">
+      <div class="container">
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">Thành Viên Nhóm</h2>
+            <p class="section-desc">Danh sách anh em đồng hành qua từng buổi tập.</p>
           </div>
-          <div class="card-content">
-            <h3>Barbell Back Squat</h3>
-            <p><strong>Lỗi thường gặp:</strong> Cụp đuôi (Butt wink), chụm gối.</p>
-            <p><strong>Cách sửa:</strong> Tập gồng Core (Valsalva), mở gối theo mũi chân, không xuống quá sâu nếu thiếu cơ động hông.</p>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="memberSearchInput" placeholder="Tìm thành viên...">
+          </div>
+        </div>
+        <div class="members-grid" id="membersGrid">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- View: Stats -->
+    <section id="view-stats" class="view-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Thống Kê Hoạt Động</h2>
+          <p class="section-desc">Bảng tổng hợp phong độ tập luyện qua các tuần.</p>
+        </div>
+
+        <div class="stats-dashboard-grid">
+          <div class="card chart-card">
+            <h3 class="card-subtitle"><i class="fa-solid fa-chart-column"></i> Lượt tập theo tuần</h3>
+            <div class="simple-bar-chart" id="chartBars">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+          <div class="card leaderboard-card">
+            <h3 class="card-subtitle"><i class="fa-solid fa-trophy"></i> Chiến thần chăm chỉ</h3>
+            <div id="topPerformer">
+              <!-- Rendered via JS -->
+            </div>
           </div>
         </div>
 
-        <div class="card premium-card">
-          <div class="card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Bench Press">
-          </div>
-          <div class="card-content">
-            <h3>Barbell Bench Press</h3>
-            <p><strong>Lỗi thường gặp:</strong> Xòe cùi chỏ 90 độ, hông rời khỏi ghế.</p>
-            <p><strong>Cách sửa:</strong> Khép cùi chỏ góc 45-60 độ, ghim chặt 2 bả vai xuống ghế, đạp chân vững (Leg drive).</p>
+        <div class="card table-card">
+          <h3 class="card-subtitle"><i class="fa-solid fa-list-check"></i> Chi tiết tỷ lệ tham gia</h3>
+          <div class="table-responsive">
+            <table class="styled-table">
+              <thead>
+                <tr>
+                  <th>Thành viên</th>
+                  <th>Số buổi hoàn thành</th>
+                  <th>Tỷ lệ tham gia</th>
+                  <th>Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody id="statsTableBody">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- View: Admin -->
+    <section id="view-admin" class="view-section">
+      <div class="container">
+        <div class="section-header-flex">
+          <div>
+            <h2 class="section-title">Quản Trị Nhóm Gym</h2>
+            <p class="section-desc">Quản lý lịch tập, cấu hình số người và thành viên tham gia.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" id="btnAdminLogout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất Admin</button>
+        </div>
+
+        <div id="adminAuthSection" class="card auth-card">
+          <h3><i class="fa-solid fa-shield-halved"></i> Đăng nhập Quản Trị</h3>
+          <p>Mã PIN mặc định demo: <code>admin123</code></p>
+          <form id="adminLoginForm" class="admin-login-form">
+            <input type="password" id="adminPinInput" placeholder="Nhập mã PIN" required>
+            <button type="submit" class="btn btn-primary">Xác nhận</button>
+          </form>
+        </div>
+
+        <div id="adminPanelSection" class="admin-panel hidden">
+          <div class="admin-grid">
+            <!-- Form add/edit session -->
+            <div class="card">
+              <h3 class="card-subtitle" id="adminFormTitle"><i class="fa-solid fa-plus-circle"></i> Thêm/Sửa buổi tập</h3>
+              <form id="sessionForm">
+                <input type="hidden" id="formSessionId">
+                <div class="form-group">
+                  <label for="formDaySelect">Thứ / Ngày</label>
+                  <select id="formDaySelect" required>
+                    <option value="Thứ 2">Thứ 2</option>
+                    <option value="Thứ 3">Thứ 3</option>
+                    <option value="Thứ 4">Thứ 4</option>
+                    <option value="Thứ 5">Thứ 5</option>
+                    <option value="Thứ 6">Thứ 6</option>
+                    <option value="Thứ 7">Thứ 7</option>
+                    <option value="Chủ nhật">Chủ nhật</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="formTitle">Nhóm cơ / Nội dung</label>
+                  <input type="text" id="formTitle" placeholder="VD: Chest + Triceps hoặc Nghỉ" required>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="formTime">Khung giờ</label>
+                    <input type="text" id="formTime" placeholder="18:00 - 19:30" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="formMaxSlots">Giới hạn (Người)</label>
+                    <input type="number" id="formMaxSlots" min="1" max="30" value="8" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" id="formIsRest"> Đặt làm ngày Nghỉ (Rest Day)
+                  </label>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" id="btnSaveSession">Lưu buổi tập</button>
+                  <button type="button" class="btn btn-secondary" id="btnCancelEdit" style="display: none;">Hủy</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Manage current sessions -->
+            <div class="card">
+              <h3 class="card-subtitle"><i class="fa-solid fa-gear"></i> Danh sách quản lý buổi tập</h3>
+              <div class="admin-session-list" id="adminSessionList">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- MODAL ĐẶT LỊCH (Dùng chung cho JS) -->
-  <div id="modal" class="modal hidden" aria-hidden="true">
-    <div class="modal-backdrop" data-close></div>
-    <div class="modal-content-wrap">
-      <button class="modal-close" data-close><i class="fa-solid fa-xmark"></i></button>
-      <div id="modalContent"></div>
+  <!-- Modal: Booking -->
+  <div class="modal-backdrop" id="bookingModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Đăng ký tham gia</h3>
+        <button class="modal-close" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-info-item">
+          <span>Buổi tập:</span>
+          <strong id="modalSessionTitle">--</strong>
+        </div>
+        <div class="modal-info-item">
+          <span>Thời gian:</span>
+          <strong id="modalSessionTime">--</strong>
+        </div>
+        <div class="form-group" style="margin-top: 1rem;">
+          <label for="bookingMemberName">Chọn hoặc nhập tên của bạn:</label>
+          <input type="text" id="bookingMemberName" list="presetMembers" placeholder="Nhập tên của bạn..." required>
+          <datalist id="presetMembers">
+            <!-- Rendered via JS -->
+          </datalist>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal>Đóng</button>
+        <button class="btn btn-accent" id="btnConfirmBooking"><i class="fa-solid fa-check"></i> Xác nhận đăng ký</button>
+      </div>
     </div>
   </div>
 
-  <footer class="footer-premium">
-    <div class="container text-center">
-      <h3>PRO FIT ACADEMY</h3>
-      <p>Booking Lịch Tập · Tập Chuẩn Form · Kiến Tạo Hình Thể</p>
-      <p class="copyright">&copy; 2026 Developed for Professional Gymers.</p>
+  <!-- Modal: Cancel Confirm -->
+  <div class="modal-backdrop" id="cancelModal">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header">
+        <h3 class="modal-title text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Hủy buổi tập</h3>
+        <button class="modal-close" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="cancelModalText">Bạn có chắc chắn muốn hủy đăng ký buổi tập này không?</p>
+        <div class="form-group" style="margin-top: 1rem;">
+          <label for="cancelMemberName">Nhập đúng tên đã đăng ký để hủy:</label>
+          <input type="text" id="cancelMemberName" placeholder="Tên của bạn...">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal>Quay lại</button>
+        <button class="btn btn-danger" id="btnConfirmCancel">Hủy đăng ký</button>
+      </div>
     </div>
-  </footer>
+  </div>
 
-  <script src="js/app.js"></script>
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
