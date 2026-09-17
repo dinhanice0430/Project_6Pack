@@ -4,12 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GYM BROS - Không cần tập một mình</title>
+
   <!-- Google Fonts & Font Awesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Link CSS đúng đường dẫn thư mục css/ -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <!-- Header / Navigation -->
@@ -27,7 +30,7 @@
         <a href="#admin" class="nav-item"><i class="fa-solid fa-lock"></i> Admin</a>
       </nav>
       <div class="header-actions">
-        <a href="#schedule" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Đăng ký tập</a>
+        <a href="#schedule" class="btn btn-accent btn-sm"><i class="fa-solid fa-plus"></i> Đăng ký tập</a>
         <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -152,16 +155,15 @@
 
         <div id="adminAuthSection" class="card auth-card">
           <h3><i class="fa-solid fa-shield-halved"></i> Đăng nhập Quản Trị</h3>
-          <p>Mã PIN mặc định demo: <code>admin123</code></p>
+          <p style="color: var(--text-muted); margin-top: 0.25rem;">Mã PIN mặc định demo: <code>admin123</code></p>
           <form id="adminLoginForm" class="admin-login-form">
             <input type="password" id="adminPinInput" placeholder="Nhập mã PIN" required>
-            <button type="submit" class="btn btn-primary">Xác nhận</button>
+            <button type="submit" class="btn btn-accent">Xác nhận</button>
           </form>
         </div>
 
         <div id="adminPanelSection" class="admin-panel hidden">
           <div class="admin-grid">
-            <!-- Form add/edit session -->
             <div class="card">
               <h3 class="card-subtitle" id="adminFormTitle"><i class="fa-solid fa-plus-circle"></i> Thêm/Sửa buổi tập</h3>
               <form id="sessionForm">
@@ -193,18 +195,17 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>
+                  <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                     <input type="checkbox" id="formIsRest"> Đặt làm ngày Nghỉ (Rest Day)
                   </label>
                 </div>
                 <div class="form-actions">
-                  <button type="submit" class="btn btn-primary" id="btnSaveSession">Lưu buổi tập</button>
+                  <button type="submit" class="btn btn-accent" id="btnSaveSession">Lưu buổi tập</button>
                   <button type="button" class="btn btn-secondary" id="btnCancelEdit" style="display: none;">Hủy</button>
                 </div>
               </form>
             </div>
 
-            <!-- Manage current sessions -->
             <div class="card">
               <h3 class="card-subtitle"><i class="fa-solid fa-gear"></i> Danh sách quản lý buổi tập</h3>
               <div class="admin-session-list" id="adminSessionList">
@@ -233,7 +234,7 @@
           <span>Thời gian:</span>
           <strong id="modalSessionTime">--</strong>
         </div>
-        <div class="form-group" style="margin-top: 1rem;">
+        <div class="form-group" style="margin-top: 1.25rem;">
           <label for="bookingMemberName">Chọn hoặc nhập tên của bạn:</label>
           <input type="text" id="bookingMemberName" list="presetMembers" placeholder="Nhập tên của bạn..." required>
           <datalist id="presetMembers">
@@ -269,9 +270,10 @@
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
+  <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <script src="script.js"></script>
+  <!-- Script JS (kết nối file app.js trong thư mục js/) -->
+  <script src="js/app.js"></script>
 </body>
 </html>
