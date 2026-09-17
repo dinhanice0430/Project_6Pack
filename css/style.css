@@ -172,3 +172,22 @@ body {
     background: #fff; box-shadow: 0 0 0 4px rgba(230,57,70,0.1); 
 }
 .form-group input::placeholder { color: #9CA3AF; }
+/* =========================================================
+   PHÂN QUYỀN ADMIN (ROLE-BASED ACCESS CONTROL)
+   ========================================================= */
+
+/* Mặc định ẩn hoàn toàn bảng điều khiển Admin và nút trên thanh Nav */
+#admin-panel,
+.nav-links li:nth-child(3) {
+    display: none; 
+}
+
+/* KHI ĐƯỢC CẤP QUYỀN ADMIN (Thẻ body có class 'admin-mode') */
+body.admin-mode #admin-panel {
+    display: block; /* Hiện bảng điều khiển */
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+body.admin-mode .nav-links li:nth-child(3) {
+    display: block; /* Hiện menu "Quản Trị (Admin)" */
+}
