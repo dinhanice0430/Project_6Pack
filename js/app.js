@@ -184,3 +184,96 @@ document.addEventListener('DOMContentLoaded', () => {
     setupFilters();
     renderSessions(sessions);
 });
+// =========================================================
+// 9. XỬ LÝ MODAL & FORM TẠO KÈO MỚI (CHỨC NĂNG THỰC TẾ)
+// =========================================================
+
+const modal = document.getElementById('modal');
+const createBtn = document.getElementById('createBtn');
+const closeBtns = document.querySelectorAll('[data-close]');
+const modalContent = document.getElementById('modalContent');
+
+// Tự động tạo giao diện Form nhập liệu
+modalContent.innerHTML = `
+    <div class="modal-header">
+        <h3 class="modal-title">Tạo Kèo Tập Mới 🏋️</h3>
+        <p>Điền thông tin để tìm đồng đội tập cùng nhé!</p>
+    </div>
+    <form id="createSessionForm">
+        <div class="form-group">
+            <label>Nhóm cơ / Bài tập chính</label>
+            <input type="text" id="newMuscle" placeholder="VD: Ngực + Tay sau (Bench Press)" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Ngày tập</label>
+                <input type="text" id="newDate" placeholder="VD: Hôm nay, Thứ 6..." required>
+            </div>
+            <div class="form-group">
+                <label>Khung giờ</label>
+                <input type="text" id="newTime" placeholder="VD: 18:30 - 20:00" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Địa điểm</label>
+            <input type="text" id="newLocation" placeholder="VD: CityGym Q1" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Tên Host (Người tạo)</label>
+                <input type="text" id="newCreator" placeholder="Tên của bạn" required>
+            </div>
+            <div class="form-group">
+                <label>Số lượng người tối đa</label>
+                <input type="number" id="newMaxMembers" placeholder="VD: 4" min="2" max="20" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" style="margin-top: 15px; padding: 14px; font-size: 1.05rem;">
+            <i class="fa-solid fa-fire"></i> Mở Kèo Ngay
+        </button>
+    </form>
+`;
+
+// Hàm Mở / Đóng Modal
+function toggleModal() {
+    modal.classList.toggle('hidden');
+}
+
+// Bắt sự kiện click nút Tạo kèo
+createBtn.addEventListener('click', toggleModal);
+
+// Bắt sự kiện click nút X (đóng) hoặc click ra ngoài viền
+closeBtns.forEach(btn => {
+    btn.addEventListener('click', toggleModal);
+});
+
+// XỬ LÝ LƯU DỮ LIỆU KHI SUBMIT FORM
+document.getElementById('createSessionForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Ngăn trình duyệt load lại trang
+
+    // Thu thập dữ liệu bạn vừa nhập
+    const newSession = {
+        id: sessions.length + 1,
+        muscle: document.getElementById('newMuscle').value,
+        date: document.getElementById('newDate').value,
+        time: document.getElementById('newTime').value,
+        location: document.getElementById('newLocation').value,
+        creator: document.getElementById('newCreator').value,
+        currentMembers: 1, // Host tạo kèo mặc định tính là 1 người
+        maxMembers: parseInt(document.getElementById('newMaxMembers').value)
+    };
+
+    // Thêm kèo mới lên đầu danh sách
+    sessions.unshift(newSession);
+
+    // Render lại giao diện và bộ lọc dropdown
+    setupFilters(); 
+    renderSessions(sessions);
+
+    // Đóng Modal & Xóa trắng form để lần sau nhập tiếp
+    this.reset();
+    toggleModal();
+    
+    // Báo thành công
+    alert("🎉 Tạo kèo thành công! Kèo của bạn đã xuất hiện trên cùng.");
+});
