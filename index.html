@@ -1,230 +1,275 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRO FIT - Kiến Tạo Thể Hình Khỏe Đẹp & Chuẩn Y Khoa</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- FontAwesome Icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gym Booking - Đăng ký, tạo kèo tập gym & Kiến thức Gym Pro">
+  <title>PRO FIT & GYM BOOKING 🏋️</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- 1. NAVIGATION -->
-    <header class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">PRO<span>FIT</span> ACADEMY</a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#technique">Kỹ Thuật & Nhóm Cơ</a></li>
-                    <li><a href="#mistakes">Sửa Lỗi Sai</a></li>
-                    <li><a href="#nutrition">Dinh Dưỡng</a></li>
-                    <li><a href="#blog">Blog Gymer</a></li>
-                    <li><a href="#booking" class="btn-primary">Đặt Lịch PT</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- 1. NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a class="logo" href="#">🏋️ <span>PRO<span>FIT</span></span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#booking-section">Kèo Tập Gym</a></li>
+          <li><a href="#technique">Kỹ Thuật & Nhóm Cơ</a></li>
+          <li><a href="#mistakes">Sửa Lỗi Sai</a></li>
+          <li><a href="#nutrition">Dinh Dưỡng</a></li>
+          <li><a href="#blog">Blog Gymer</a></li>
+        </ul>
+      </nav>
+      <button id="createBtn" class="btn btn-primary">＋ Tạo kèo mới</button>
+    </div>
+  </header>
 
-    <!-- 2. HERO SECTION -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>TẬP CHUẨN KỸ THUẬT - <span>BIẾN ĐỔI HÌNH THỂ</span></h1>
-            <p>Hệ thống phân tích chuyển động cơ học, tối ưu hóa kích hoạt nhóm cơ và thiết lập chế độ dinh dưỡng cá nhân hóa từ các HLV chuyên nghiệp.</p>
-            <div class="hero-btns">
-                <a href="#technique" class="btn-primary">Khám Phá Kỹ Thuật Tập</a>
-                <a href="#nutrition" class="btn-secondary">Tính Macro Dinh Dưỡng</a>
-            </div>
+  <!-- 2. HERO SECTION -->
+  <section class="hero">
+    <div class="container hero-content">
+      <p class="eyebrow">TRAIN TOGETHER & TRAIN SMART</p>
+      <h1>TẬP CHUẨN KỸ THUẬT<br><span>TẠO KÈO TẬP CÙNG NHAU</span></h1>
+      <p class="hero-text">Hệ thống phân tích chuyển động cơ học, tối ưu hóa dinh dưỡng và kết nối cộng đồng tập luyện chuẩn Pro-Gymer.</p>
+      <div class="hero-btns">
+        <a href="#booking-section" class="btn-primary">Xem Lịch Tập Hôm Nay</a>
+        <a href="#technique" class="btn-secondary">Khám Phá Kỹ Thuật Tập</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- 3. ĐẶT LỊCH TẬP GYM (BOOKING & SCHEDULE SECTION) -->
+    <section id="booking-section" class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">GYM BOOKING</p>
+          <h2>Lịch Tập & Đăng Ký Kèo</h2>
         </div>
+        <button id="resetBtn" class="text-btn">Xóa bộ lọc</button>
+      </div>
+
+      <!-- Thống kê Stats -->
+      <section class="stats">
+        <div><span id="totalSessions">0</span><small>Kèo đang mở</small></div>
+        <div><span id="totalMembers">0</span><small>Lượt đăng ký</small></div>
+        <div><span id="todaySessions">0</span><small>Kèo hôm nay</small></div>
+      </section>
+
+      <!-- Thanh Tìm kiếm & Bộ lọc -->
+      <section class="toolbar">
+        <div class="search-wrap">
+          <span>🔎</span>
+          <input id="searchInput" type="search" placeholder="Tìm nhóm cơ, địa điểm, người tạo...">
+        </div>
+        <div class="filters">
+          <select id="dateFilter">
+            <option value="all">Tất cả ngày</option>
+          </select>
+          <select id="muscleFilter">
+            <option value="all">Tất cả nhóm cơ</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Danh sách kèo & Trạng thái trống -->
+      <div id="sessionList" class="session-grid"></div>
+      <div id="emptyState" class="empty hidden">
+        <div>🏋️</div>
+        <h3>Chưa có kèo phù hợp</h3>
+        <p>Hãy thử đổi bộ lọc hoặc bấm "Tạo kèo mới" ở góc trên màn hình.</p>
+      </div>
     </section>
 
-    <!-- 3. PHÂN TÍCH KỸ THUẬT & NHÓM CƠ (TARGET MUSCLE & TECHNIQUE) -->
+    <!-- 4. PHÂN TÍCH KỸ THUẬT & NHÓM CƠ (TARGET MUSCLE & TECHNIQUE) -->
     <section id="technique" class="section">
-        <div class="container">
-            <h2 class="section-title">Phân Tích Động Tác & Nhóm Cơ Target</h2>
-            <p class="section-subtitle">Tối ưu hóa lực ép (Tension) vào đúng nhóm cơ đích để phát triển tối đa</p>
+      <h2 class="section-title">Phân Tích Động Tác & Nhóm Cơ Target</h2>
+      <p class="section-subtitle">Tối ưu hóa lực ép (Tension) vào đúng nhóm cơ đích để phát triển tối đa</p>
 
-            <div class="grid grid-2">
-                <!-- Single Card: Barbell Bench Press -->
-                <div class="card exercise-card">
-                    <div class="media-container">
-                        <!-- Tích hợp Video minh họa dạng GIF hoặc Video MP4/Embed -->
-                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Bench Press Technique" class="exercise-img">
-                        <span class="badge compound">Compound / Đa khớp</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>1. Barbell Bench Press (Đẩy Ngực Ngang)</h3>
-                        
-                        <!-- Phân tích nhóm cơ -->
-                        <div class="muscle-analysis">
-                            <h4><i class="fa-solid fa-child"></i> Phân Tích Cơ Hoạt Động:</h4>
-                            <ul>
-                                <li><strong>Cơ chính (Primary):</strong> Cơ ngực lớn (Pectoralis Major) — <span class="highlight">85% Kích hoạt</span></li>
-                                <li><strong>Cơ phụ (Secondary):</strong> Cơ vai trước (Anterior Deltoid), Cơ tay sau (Triceps Brachii)</li>
-                                <li><strong>Cơ ổn định (Stabilizers):</strong> Cơ xô (Lats), Cơ bụng (Core)</li>
-                            </ul>
-                        </div>
-
-                        <!-- Hướng dẫn kỹ thuật chuẩn PRO -->
-                        <div class="pro-tips">
-                            <h4><i class="fa-solid fa-circle-check text-success"></i> Kỹ Thuật Chuẩn Pro:</h4>
-                            <ol>
-                                <li>Rút và hạ xương bả vai (Retract & Depress Scapula) xuống thảm.</li>
-                                <li>Khóa vững bàn chân xuống sàn (Leg Drive), tạo độ võng tự nhiên ở lưng dưới.</li>
-                                <li>Hạ thanh bar có kiểm soát về vùng ngực dưới, cẳng tay luôn vuông góc với sàn.</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Card: Barbell Squat -->
-                <div class="card exercise-card">
-                    <div class="media-container">
-                        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="Squat Technique" class="exercise-img">
-                        <span class="badge compound">Compound / Đa khớp</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>2. Barbell Back Squat (Gánh Đùi Sau)</h3>
-                        
-                        <div class="muscle-analysis">
-                            <h4><i class="fa-solid fa-child"></i> Phân Tích Cơ Hoạt Động:</h4>
-                            <ul>
-                                <li><strong>Cơ chính (Primary):</strong> Cơ đùi trước (Quadriceps), Cơ mông (Gluteus Maximus)</li>
-                                <li><strong>Cơ phụ (Secondary):</strong> Cơ đùi sau (Hamstrings), Cơ bắp chân (Calves)</li>
-                                <li><strong>Cơ ổn định (Stabilizers):</strong> Cơ dựng sống (Erector Spinae), Core</li>
-                            </ul>
-                        </div>
-
-                        <div class="pro-tips">
-                            <h4><i class="fa-solid fa-circle-check text-success"></i> Kỹ Thuật Chuẩn Pro:</h4>
-                            <ol>
-                                <li>Hít sâu gồng bụng (Valsalva Maneuver) tạo áp lực khoang bụng trước khi hạ người.</li>
-                                <li>Mở gối theo hướng mũi chân, đẩy hông ra sau và hạ đùi song song hoặc sâu hơn mặt sàn (At/Below Parallel).</li>
-                                <li>Đạp mạnh đều 2 chân, giữ cột sống ở vị trí trung tính (Neutral Spine).</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. CÁC LỖI SAI THƯỜNG GẶP & CÁCH SỬA (MISTAKES & FIXES) -->
-    <section id="mistakes" class="section bg-light">
-        <div class="container">
-            <h2 class="section-title">Sửa Lỗi Sai Thường Gặp (Form Check)</h2>
-            <p class="section-subtitle">Tập nặng mà sai form chỉ mang lại chấn thương. Hãy sửa ngay trước khi quá muộn!</p>
-
-            <div class="grid grid-3">
-                <div class="card mistake-card">
-                    <div class="mistake-header">
-                        <i class="fa-solid fa-triangle-exclamation text-danger"></i>
-                        <h3>Lưng Cong Khi Deadlift</h3>
-                    </div>
-                    <div class="mistake-content">
-                        <p class="error-text"><strong>Nguy cơ:</strong> Thoát vị đĩa đệm L4/L5, căng cơ thắt lưng cấp tính.</p>
-                        <p class="fix-text"><strong>Cách sửa:</strong> Trước khi kéo, hãy tưởng tượng kẹp một quả chanh dưới nách để kích hoạt cơ xô (Lats), giữ ngực mở và gồng chặt bụng.</p>
-                    </div>
-                </div>
-
-                <div class="card mistake-card">
-                    <div class="mistake-header">
-                        <i class="fa-solid fa-triangle-exclamation text-danger"></i>
-                        <h3>Gối Chụm Vào Trong (Valgus) Khi Squat</h3>
-                    </div>
-                    <div class="mistake-content">
-                        <p class="error-text"><strong>Nguy cơ:</strong> Rách dây chằng chéo trước (ACL), đau khớp bánh chè.</p>
-                        <p class="fix-text"><strong>Cách sửa:</strong> Tập thêm nhóm cơ mông nhỡ (Gluteus Medius) với dây Miniband, luôn chủ động xoay đùi ra ngoài khi đi lên.</p>
-                    </div>
-                </div>
-
-                <div class="card mistake-card">
-                    <div class="mistake-header">
-                        <i class="fa-solid fa-triangle-exclamation text-danger"></i>
-                        <h3>Xòe Cùi Chỏ 90 Độ Khi Bench Press</h3>
-                    </div>
-                    <div class="mistake-content">
-                        <p class="error-text"><strong>Nguy cơ:</strong> Chấn thương khớp xoay vai (Rotator Cuff Impingement).</p>
-                        <p class="fix-text"><strong>Cách sửa:</strong> Khép cùi chỏ tạo với thân người một góc khoảng 45–60 độ để tạo vị trí an toàn cho khớp vai.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. KHOA HỌC DINH DƯỠNG GYMER (NUTRITION) -->
-    <section id="nutrition" class="section">
-        <div class="container">
-            <h2 class="section-title">Khoa Học Dinh Dưỡng Gymer</h2>
-            <p class="section-subtitle">"You are what you eat" — 70% kết quả hình thể đến từ bếp ăn của bạn</p>
-
-            <div class="grid grid-3">
-                <div class="card nutrition-card">
-                    <div class="card-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
-                    <h3>Protein (Đạm)</h3>
-                    <p class="macro-target">Nhu cầu: 1.8 - 2.2g / kg trọng lượng</p>
-                    <p>Xây dựng và phục hồi sợi cơ bị tổn thương sau buổi tập. Nguồn tốt: Nạc ngực gà, thăn bò, lòng trắng trứng, Whey Protein Isolate.</p>
-                </div>
-
-                <div class="card nutrition-card">
-                    <div class="card-icon"><i class="fa-solid fa-bowl-rice"></i></div>
-                    <h3>Carbohydrate (Tinh Bột)</h3>
-                    <p class="macro-target">Nhu cầu: 3.0 - 5.0g / kg trọng lượng</p>
-                    <p>Cung cấp Glycogen nạp năng lượng cho các buổi tập cường độ cao. Ưu tiên Carb phức: Yến mạch, khoai lang, gạo lứt.</p>
-                </div>
-
-                <div class="card nutrition-card">
-                    <div class="card-icon"><i class="fa-solid fa-avocado"></i></div>
-                    <h3>Lipid (Chất Béo Tốt)</h3>
-                    <p class="macro-target">Nhu cầu: 0.8 - 1.0g / kg trọng lượng</p>
-                    <p>Duy trì Hormone Testosterone tự nhiên — chìa khóa phát triển cơ bắp. Nguồn tốt: Dầu olive, hạt óc chó, bơ quả, cá hồi (Omega-3).</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. BLOG KIẾN THỨC & VIDEO DEMO -->
-    <section id="blog" class="section bg-light">
-        <div class="container">
-            <h2 class="section-title">Góc Kiến Thức & Video Phân Tích</h2>
+      <div class="grid grid-2">
+        <!-- Card 1: Bench Press -->
+        <div class="card exercise-card">
+          <div class="media-container">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Bench Press Technique" class="exercise-img">
+            <span class="badge compound">Compound / Đa khớp</span>
+          </div>
+          <div class="card-body">
+            <h3>1. Barbell Bench Press (Đẩy Ngực Ngang)</h3>
             
-            <div class="grid grid-2">
-                <!-- Video Section -->
-                <div class="video-box">
-                    <h3><i class="fa-solid fa-play"></i> Video: Phân Tích Cơ Sinh Học Trong Tập Luyện</h3>
-                    <div class="responsive-video">
-                        <!-- Nhúng Video Youtube Phân tích Kỹ thuật -->
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Gymer Knowledge Video" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <!-- Blog Articles List -->
-                <div class="blog-list">
-                    <h3><i class="fa-solid fa-newspaper"></i> Bài Viết Mới Nhất</h3>
-                    
-                    <article class="blog-item">
-                        <h4><a href="#">Hypertrophy vs Strength: Bạn Nên Tập Tăng Cơ Hay Tăng Sức Mạnh?</a></h4>
-                        <p class="blog-meta">Tác giả: Coach Pro | Ngày: 17/09/2026</p>
-                        <p>Phân tích chi tiết về tầm khoảng Lặp (Reps range), thời gian nghỉ (Rest time) và khối lượng tạ (Volume) để tối ưu hóa mục tiêu...</p>
-                    </article>
-
-                    <article class="blog-item">
-                        <h4><a href="#">Tối Ưu Hóa Cửa Sổ Dinh Dưỡng (Anabolic Window) Sau Buổi Tập</a></h4>
-                        <p class="blog-meta">Tác giả: Pro Nutritionist | Ngày: 15/09/2026</p>
-                        <p>Thực hư chuyện phải uống Whey ngay lập tức trong vòng 30 phút sau khi tập hay tổng lượng Protein trong ngày mới là yếu tố quyết định?</p>
-                    </article>
-                </div>
+            <div class="muscle-analysis">
+              <h4><i class="fa-solid fa-child"></i> Phân Tích Cơ Hoạt Động:</h4>
+              <ul>
+                <li><strong>Cơ chính (Primary):</strong> Cơ ngực lớn (Pectoralis Major) — <span class="highlight">85% Kích hoạt</span></li>
+                <li><strong>Cơ phụ (Secondary):</strong> Cơ vai trước, Cơ tay sau (Triceps)</li>
+                <li><strong>Cơ ổn định (Stabilizers):</strong> Cơ xô (Lats), Cơ bụng (Core)</li>
+              </ul>
             </div>
+
+            <div class="pro-tips">
+              <h4><i class="fa-solid fa-circle-check text-success"></i> Kỹ Thuật Chuẩn Pro:</h4>
+              <ol>
+                <li>Rút và hạ xương bả vai (Retract & Depress Scapula) xuống thảm.</li>
+                <li>Khóa vững bàn chân xuống sàn (Leg Drive), tạo độ võng tự nhiên ở lưng dưới.</li>
+                <li>Hạ thanh bar có kiểm soát về vùng ngực dưới, cẳng tay luôn vuông góc với sàn.</li>
+              </ol>
+            </div>
+          </div>
         </div>
+
+        <!-- Card 2: Squat -->
+        <div class="card exercise-card">
+          <div class="media-container">
+            <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="Squat Technique" class="exercise-img">
+            <span class="badge compound">Compound / Đa khớp</span>
+          </div>
+          <div class="card-body">
+            <h3>2. Barbell Back Squat (Gánh Đùi Sau)</h3>
+            
+            <div class="muscle-analysis">
+              <h4><i class="fa-solid fa-child"></i> Phân Tích Cơ Hoạt Động:</h4>
+              <ul>
+                <li><strong>Cơ chính (Primary):</strong> Cơ đùi trước (Quadriceps), Cơ mông (Glutes)</li>
+                <li><strong>Cơ phụ (Secondary):</strong> Cơ đùi sau (Hamstrings), Cơ bắp chân</li>
+                <li><strong>Cơ ổn định (Stabilizers):</strong> Cơ dựng sống (Erector Spinae), Core</li>
+              </ul>
+            </div>
+
+            <div class="pro-tips">
+              <h4><i class="fa-solid fa-circle-check text-success"></i> Kỹ Thuật Chuẩn Pro:</h4>
+              <ol>
+                <li>Hít sâu gồng bụng (Valsalva Maneuver) tạo áp lực khoang bụng trước khi hạ người.</li>
+                <li>Mở gối theo hướng mũi chân, đẩy hông ra sau và hạ đùi song song hoặc sâu hơn mặt sàn.</li>
+                <li>Đạp mạnh đều 2 chân, giữ cột sống ở vị trí trung tính (Neutral Spine).</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 7. FOOTER & BOOKING -->
-    <footer id="booking" class="footer">
-        <div class="container footer-content">
-            <p>&copy; 2026 PRO FIT ACADEMY. Designed by A Professional Gymer.</p>
-        </div>
-    </footer>
+    <!-- 5. CÁC LỖI SAI THƯỜNG GẶP (MISTAKES & FIXES) -->
+    <section id="mistakes" class="section bg-light">
+      <h2 class="section-title">Sửa Lỗi Sai Thường Gặp (Form Check)</h2>
+      <p class="section-subtitle">Tập nặng mà sai form chỉ mang lại chấn thương. Hãy sửa ngay trước khi quá muộn!</p>
 
-    <script src="js/app.js"></script>
+      <div class="grid grid-3">
+        <div class="card mistake-card">
+          <div class="mistake-header">
+            <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+            <h3>Lưng Cong Khi Deadlift</h3>
+          </div>
+          <div class="mistake-content">
+            <p class="error-text"><strong>Nguy cơ:</strong> Thoát vị đĩa đệm L4/L5, căng cơ thắt lưng cấp tính.</p>
+            <p class="fix-text"><strong>Cách sửa:</strong> Trước khi kéo, hãy tưởng tượng kẹp một quả chanh dưới nách để kích hoạt cơ xô (Lats), giữ ngực mở và gồng chặt bụng.</p>
+          </div>
+        </div>
+
+        <div class="card mistake-card">
+          <div class="mistake-header">
+            <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+            <h3>Gối Chụm Vào Trong Khi Squat</h3>
+          </div>
+          <div class="mistake-content">
+            <p class="error-text"><strong>Nguy cơ:</strong> Rách dây chằng chéo trước (ACL), đau khớp bánh chè.</p>
+            <p class="fix-text"><strong>Cách sửa:</strong> Tập thêm nhóm cơ mông nhỡ với dây Miniband, luôn chủ động xoay đùi ra ngoài khi đi lên.</p>
+          </div>
+        </div>
+
+        <div class="card mistake-card">
+          <div class="mistake-header">
+            <i class="fa-solid fa-triangle-exclamation text-danger"></i>
+            <h3>Xòe Cùi Chỏ 90 Độ Khi Bench Press</h3>
+          </div>
+          <div class="mistake-content">
+            <p class="error-text"><strong>Nguy cơ:</strong> Chấn thương khớp xoay vai (Rotator Cuff Impingement).</p>
+            <p class="fix-text"><strong>Cách sửa:</strong> Khép cùi chỏ tạo với thân người một góc khoảng 45–60 độ để tạo vị trí an toàn cho khớp vai.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. KHOA HỌC DINH DƯỠNG GYMER (NUTRITION) -->
+    <section id="nutrition" class="section">
+      <h2 class="section-title">Khoa Học Dinh Dưỡng Gymer</h2>
+      <p class="section-subtitle">"You are what you eat" — 70% kết quả hình thể đến từ bếp ăn của bạn</p>
+
+      <div class="grid grid-3">
+        <div class="card nutrition-card">
+          <div class="card-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+          <h3>Protein (Đạm)</h3>
+          <p class="macro-target">Nhu cầu: 1.8 - 2.2g / kg trọng lượng</p>
+          <p>Xây dựng và phục hồi sợi cơ bị tổn thương sau buổi tập. Nguồn tốt: Nạc ngực gà, thăn bò, lòng trắng trứng, Whey Protein.</p>
+        </div>
+
+        <div class="card nutrition-card">
+          <div class="card-icon"><i class="fa-solid fa-bowl-rice"></i></div>
+          <h3>Carbohydrate (Tinh Bột)</h3>
+          <p class="macro-target">Nhu cầu: 3.0 - 5.0g / kg trọng lượng</p>
+          <p>Cung cấp Glycogen nạp năng lượng cho các buổi tập cường độ cao. Ưu tiên Carb phức: Yến mạch, khoai lang, gạo lứt.</p>
+        </div>
+
+        <div class="card nutrition-card">
+          <div class="card-icon"><i class="fa-solid fa-avocado"></i></div>
+          <h3>Lipid (Chất Béo Tốt)</h3>
+          <p class="macro-target">Nhu cầu: 0.8 - 1.0g / kg trọng lượng</p>
+          <p>Duy trì Hormone Testosterone tự nhiên — chìa khóa phát triển cơ bắp. Nguồn tốt: Dầu olive, hạt óc chó, bơ quả, cá hồi.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. BLOG KIẾN THỨC & VIDEO DEMO -->
+    <section id="blog" class="section bg-light">
+      <h2 class="section-title">Góc Kiến Thức & Video Phân Tích</h2>
+      <p class="section-subtitle">Cập nhật xu hướng tập luyện và dinh dưỡng chuẩn khoa học</p>
+      
+      <div class="grid grid-2">
+        <div class="video-box">
+          <h3><i class="fa-solid fa-play"></i> Video: Phân Tích Cơ Sinh Học Trong Tập Luyện</h3>
+          <div class="responsive-video">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Gymer Knowledge Video" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="blog-list">
+          <h3><i class="fa-solid fa-newspaper"></i> Bài Viết Mới Nhất</h3>
+          
+          <article class="blog-item">
+            <h4><a href="#">Hypertrophy vs Strength: Bạn Nên Tập Tăng Cơ Hay Tăng Sức Mạnh?</a></h4>
+            <p class="blog-meta">Tác giả: Coach Pro | Ngày: 17/09/2026</p>
+            <p>Phân tích chi tiết về khoảng Lặp (Reps range), thời gian nghỉ và khối lượng tạ (Volume) để tối ưu hóa mục tiêu...</p>
+          </article>
+
+          <article class="blog-item">
+            <h4><a href="#">Tối Ưu Hóa Cửa Sổ Dinh Dưỡng (Anabolic Window) Sau Buổi Tập</a></h4>
+            <p class="blog-meta">Tác giả: Pro Nutritionist | Ngày: 15/09/2026</p>
+            <p>Thực hư chuyện phải uống Whey ngay lập tức trong vòng 30 phút hay tổng lượng Protein cả ngày mới là yếu tố quyết định?</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. MODAL ĐẶT LỊCH KÈO (Dùng cho app.js hiển thị form tạo kèo/đăng ký) -->
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close>×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- 9. FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      GYM BOOKING & PRO FIT · Tập đều · Tập vui · Chuẩn Kỹ Thuật Muscle 💪
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
