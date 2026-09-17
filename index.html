@@ -4,269 +4,187 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Gym Booking - Đăng ký, tạo kèo tập gym & Kiến thức Gym Pro">
-  <title>PRO FIT & GYM BOOKING 🏋️</title>
+  <title>PRO FIT GYM & BOOKING 🏋️</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- 1. NAVIGATION BAR -->
+  <!-- 1. NAVIGATION -->
   <header class="navbar">
     <div class="container nav-container">
-      <a class="logo" href="#">🏋️ <span>PRO<span>FIT</span></span></a>
+      <a class="logo" href="#">🏋️ PRO<span>FIT</span></a>
       <nav>
         <ul class="nav-links">
-          <li><a href="#booking-section">Kèo Tập Gym</a></li>
-          <li><a href="#technique">Kỹ Thuật & Nhóm Cơ</a></li>
-          <li><a href="#mistakes">Sửa Lỗi Sai</a></li>
-          <li><a href="#nutrition">Dinh Dưỡng</a></li>
-          <li><a href="#blog">Blog Gymer</a></li>
+          <li><a href="#booking-section">Lịch Tập & Booking</a></li>
+          <li><a href="#knowledge">Kiến Thức Pro</a></li>
+          <li><a href="#admin-panel">Quản Trị (Admin)</a></li>
         </ul>
       </nav>
-      <button id="createBtn" class="btn btn-primary">＋ Tạo kèo mới</button>
+      <button id="createBtn" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Tạo Kèo Mới</button>
     </div>
   </header>
 
-  <!-- 2. HERO SECTION -->
+  <!-- 2. HERO SECTION (Sáng & Năng động) -->
   <section class="hero">
     <div class="container hero-content">
-      <p class="eyebrow">TRAIN TOGETHER & TRAIN SMART</p>
-      <h1>TẬP CHUẨN KỸ THUẬT<br><span>TẠO KÈO TẬP CÙNG NHAU</span></h1>
-      <p class="hero-text">Hệ thống phân tích chuyển động cơ học, tối ưu hóa dinh dưỡng và kết nối cộng đồng tập luyện chuẩn Pro-Gymer.</p>
+      <span class="badge-hero">HỆ THỐNG BOOKING CHUYÊN NGHIỆP</span>
+      <h1>ĐĂNG KÝ LỊCH TẬP <br><span>KIẾN TẠO HÌNH THỂ</span></h1>
+      <p class="hero-text">Hệ thống đặt lịch tập chuyên sâu, kết nối PT cá nhân và phân tích kỹ thuật chuẩn y khoa. Cùng nhau tập luyện an toàn và hiệu quả.</p>
       <div class="hero-btns">
-        <a href="#booking-section" class="btn-primary">Xem Lịch Tập Hôm Nay</a>
-        <a href="#technique" class="btn-secondary">Khám Phá Kỹ Thuật Tập</a>
+        <a href="#booking-section" class="btn btn-primary">Book Lịch Ngay</a>
+        <a href="#knowledge" class="btn btn-outline">Xem Kỹ Thuật</a>
       </div>
     </div>
   </section>
 
   <main class="container">
-
-    <!-- 3. ĐẶT LỊCH TẬP GYM (BOOKING & SCHEDULE SECTION) -->
+    
+    <!-- 3. KHU VỰC BOOKING CHUYÊN SÂU (Cho Học viên & Hội viên) -->
     <section id="booking-section" class="section">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">GYM BOOKING</p>
-          <h2>Lịch Tập & Đăng Ký Kèo</h2>
-        </div>
-        <button id="resetBtn" class="text-btn">Xóa bộ lọc</button>
+      <div class="section-header">
+        <h2 class="section-title">Lịch Tập Đang Mở</h2>
+        <button id="resetBtn" class="btn btn-text"><i class="fa-solid fa-rotate-right"></i> Xóa bộ lọc</button>
       </div>
 
-      <!-- Thống kê Stats -->
-      <section class="stats">
-        <div><span id="totalSessions">0</span><small>Kèo đang mở</small></div>
-        <div><span id="totalMembers">0</span><small>Lượt đăng ký</small></div>
-        <div><span id="todaySessions">0</span><small>Kèo hôm nay</small></div>
-      </section>
+      <!-- Thống kê tổng quan -->
+      <div class="stats-board">
+        <div class="stat-box">
+          <i class="fa-solid fa-calendar-check stat-icon"></i>
+          <div><span id="totalSessions">0</span><p>Kèo đang mở</p></div>
+        </div>
+        <div class="stat-box">
+          <i class="fa-solid fa-users stat-icon"></i>
+          <div><span id="totalMembers">0</span><p>Lượt đăng ký</p></div>
+        </div>
+        <div class="stat-box">
+          <i class="fa-solid fa-bolt stat-icon"></i>
+          <div><span id="todaySessions">0</span><p>Kèo hôm nay</p></div>
+        </div>
+      </div>
 
-      <!-- Thanh Tìm kiếm & Bộ lọc -->
-      <section class="toolbar">
+      <!-- Thanh Tìm kiếm & Lọc -->
+      <div class="booking-toolbar">
         <div class="search-wrap">
-          <span>🔎</span>
-          <input id="searchInput" type="search" placeholder="Tìm nhóm cơ, địa điểm, người tạo...">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchInput" type="search" placeholder="Tìm theo PT, nhóm cơ, địa điểm...">
         </div>
         <div class="filters">
           <select id="dateFilter">
-            <option value="all">Tất cả ngày</option>
+            <option value="all">Tất cả các ngày</option>
           </select>
           <select id="muscleFilter">
             <option value="all">Tất cả nhóm cơ</option>
           </select>
         </div>
-      </section>
+      </div>
 
-      <!-- Danh sách kèo & Trạng thái trống -->
+      <!-- Khu vực render dữ liệu từ app.js -->
       <div id="sessionList" class="session-grid"></div>
-      <div id="emptyState" class="empty hidden">
-        <div>🏋️</div>
-        <h3>Chưa có kèo phù hợp</h3>
-        <p>Hãy thử đổi bộ lọc hoặc bấm "Tạo kèo mới" ở góc trên màn hình.</p>
-      </div>
-    </section>
-
-    <!-- 4. PHÂN TÍCH KỸ THUẬT & NHÓM CƠ (TARGET MUSCLE & TECHNIQUE) -->
-    <section id="technique" class="section">
-      <h2 class="section-title">Phân Tích Động Tác & Nhóm Cơ Target</h2>
-      <p class="section-subtitle">Tối ưu hóa lực ép (Tension) vào đúng nhóm cơ đích để phát triển tối đa</p>
-
-      <div class="grid grid-2">
-        <!-- Card 1: Bench Press -->
-        <div class="card exercise-card">
-          <div class="media-container">
-            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Bench Press Technique" class="exercise-img">
-            <span class="badge compound">Compound / Đa khớp</span>
-          </div>
-          <div class="card-body">
-            <h3>1. Barbell Bench Press (Đẩy Ngực Ngang)</h3>
-            
-            <div class="muscle-analysis">
-              <h4><i class="fa-solid fa-child"></i> Phân Tích Cơ Hoạt Động:</h4>
-              <ul>
-                <li><strong>Cơ chính (Primary):</strong> Cơ ngực lớn (Pectoralis Major) — <span class="highlight">85% Kích hoạt</span></li>
-                <li><strong>Cơ phụ (Secondary):</strong> Cơ vai trước, Cơ tay sau (Triceps)</li>
-                <li><strong>Cơ ổn định (Stabilizers):</strong> Cơ xô (Lats), Cơ bụng (Core)</li>
-              </ul>
-            </div>
-
-            <div class="pro-tips">
-              <h4><i class="fa-solid fa-circle-check text-success"></i> Kỹ Thuật Chuẩn Pro:</h4>
-              <ol>
-                <li>Rút và hạ xương bả vai (Retract & Depress Scapula) xuống thảm.</li>
-                <li>Khóa vững bàn chân xuống sàn (Leg Drive), tạo độ võng tự nhiên ở lưng dưới.</li>
-                <li>Hạ thanh bar có kiểm soát về vùng ngực dưới, cẳng tay luôn vuông góc với sàn.</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: Squat -->
-        <div class="card exercise-card">
-          <div class="media-container">
-            <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="Squat Technique" class="exercise-img">
-            <span class="badge compound">Compound / Đa khớp</span>
-          </div>
-          <div class="card-body">
-            <h3>2. Barbell Back Squat (Gánh Đùi Sau)</h3>
-            
-            <div class="muscle-analysis">
-              <h4><i class="fa-solid fa-child"></i> Phân Tích Cơ Hoạt Động:</h4>
-              <ul>
-                <li><strong>Cơ chính (Primary):</strong> Cơ đùi trước (Quadriceps), Cơ mông (Glutes)</li>
-                <li><strong>Cơ phụ (Secondary):</strong> Cơ đùi sau (Hamstrings), Cơ bắp chân</li>
-                <li><strong>Cơ ổn định (Stabilizers):</strong> Cơ dựng sống (Erector Spinae), Core</li>
-              </ul>
-            </div>
-
-            <div class="pro-tips">
-              <h4><i class="fa-solid fa-circle-check text-success"></i> Kỹ Thuật Chuẩn Pro:</h4>
-              <ol>
-                <li>Hít sâu gồng bụng (Valsalva Maneuver) tạo áp lực khoang bụng trước khi hạ người.</li>
-                <li>Mở gối theo hướng mũi chân, đẩy hông ra sau và hạ đùi song song hoặc sâu hơn mặt sàn.</li>
-                <li>Đạp mạnh đều 2 chân, giữ cột sống ở vị trí trung tính (Neutral Spine).</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. CÁC LỖI SAI THƯỜNG GẶP (MISTAKES & FIXES) -->
-    <section id="mistakes" class="section bg-light">
-      <h2 class="section-title">Sửa Lỗi Sai Thường Gặp (Form Check)</h2>
-      <p class="section-subtitle">Tập nặng mà sai form chỉ mang lại chấn thương. Hãy sửa ngay trước khi quá muộn!</p>
-
-      <div class="grid grid-3">
-        <div class="card mistake-card">
-          <div class="mistake-header">
-            <i class="fa-solid fa-triangle-exclamation text-danger"></i>
-            <h3>Lưng Cong Khi Deadlift</h3>
-          </div>
-          <div class="mistake-content">
-            <p class="error-text"><strong>Nguy cơ:</strong> Thoát vị đĩa đệm L4/L5, căng cơ thắt lưng cấp tính.</p>
-            <p class="fix-text"><strong>Cách sửa:</strong> Trước khi kéo, hãy tưởng tượng kẹp một quả chanh dưới nách để kích hoạt cơ xô (Lats), giữ ngực mở và gồng chặt bụng.</p>
-          </div>
-        </div>
-
-        <div class="card mistake-card">
-          <div class="mistake-header">
-            <i class="fa-solid fa-triangle-exclamation text-danger"></i>
-            <h3>Gối Chụm Vào Trong Khi Squat</h3>
-          </div>
-          <div class="mistake-content">
-            <p class="error-text"><strong>Nguy cơ:</strong> Rách dây chằng chéo trước (ACL), đau khớp bánh chè.</p>
-            <p class="fix-text"><strong>Cách sửa:</strong> Tập thêm nhóm cơ mông nhỡ với dây Miniband, luôn chủ động xoay đùi ra ngoài khi đi lên.</p>
-          </div>
-        </div>
-
-        <div class="card mistake-card">
-          <div class="mistake-header">
-            <i class="fa-solid fa-triangle-exclamation text-danger"></i>
-            <h3>Xòe Cùi Chỏ 90 Độ Khi Bench Press</h3>
-          </div>
-          <div class="mistake-content">
-            <p class="error-text"><strong>Nguy cơ:</strong> Chấn thương khớp xoay vai (Rotator Cuff Impingement).</p>
-            <p class="fix-text"><strong>Cách sửa:</strong> Khép cùi chỏ tạo với thân người một góc khoảng 45–60 độ để tạo vị trí an toàn cho khớp vai.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. KHOA HỌC DINH DƯỠNG GYMER (NUTRITION) -->
-    <section id="nutrition" class="section">
-      <h2 class="section-title">Khoa Học Dinh Dưỡng Gymer</h2>
-      <p class="section-subtitle">"You are what you eat" — 70% kết quả hình thể đến từ bếp ăn của bạn</p>
-
-      <div class="grid grid-3">
-        <div class="card nutrition-card">
-          <div class="card-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
-          <h3>Protein (Đạm)</h3>
-          <p class="macro-target">Nhu cầu: 1.8 - 2.2g / kg trọng lượng</p>
-          <p>Xây dựng và phục hồi sợi cơ bị tổn thương sau buổi tập. Nguồn tốt: Nạc ngực gà, thăn bò, lòng trắng trứng, Whey Protein.</p>
-        </div>
-
-        <div class="card nutrition-card">
-          <div class="card-icon"><i class="fa-solid fa-bowl-rice"></i></div>
-          <h3>Carbohydrate (Tinh Bột)</h3>
-          <p class="macro-target">Nhu cầu: 3.0 - 5.0g / kg trọng lượng</p>
-          <p>Cung cấp Glycogen nạp năng lượng cho các buổi tập cường độ cao. Ưu tiên Carb phức: Yến mạch, khoai lang, gạo lứt.</p>
-        </div>
-
-        <div class="card nutrition-card">
-          <div class="card-icon"><i class="fa-solid fa-avocado"></i></div>
-          <h3>Lipid (Chất Béo Tốt)</h3>
-          <p class="macro-target">Nhu cầu: 0.8 - 1.0g / kg trọng lượng</p>
-          <p>Duy trì Hormone Testosterone tự nhiên — chìa khóa phát triển cơ bắp. Nguồn tốt: Dầu olive, hạt óc chó, bơ quả, cá hồi.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. BLOG KIẾN THỨC & VIDEO DEMO -->
-    <section id="blog" class="section bg-light">
-      <h2 class="section-title">Góc Kiến Thức & Video Phân Tích</h2>
-      <p class="section-subtitle">Cập nhật xu hướng tập luyện và dinh dưỡng chuẩn khoa học</p>
       
+      <!-- Trạng thái trống -->
+      <div id="emptyState" class="empty-state hidden">
+        <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Empty" width="100">
+        <h3>Chưa có lịch tập phù hợp</h3>
+        <p>Thử thay đổi bộ lọc hoặc chủ động "Tạo Kèo Mới" nhé!</p>
+      </div>
+    </section>
+
+    <!-- 4. GIAO DIỆN QUẢN TRỊ (ADMIN PANEL) - Nâng cấp theo yêu cầu -->
+    <section id="admin-panel" class="section bg-light-gray">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fa-solid fa-user-tie"></i> Bảng Điều Khiển Quản Trị Viên</h2>
+        <p>Khu vực dành riêng cho PT / Admin để quản lý, duyệt và chỉnh sửa lịch tập.</p>
+      </div>
+      
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Thời gian</th>
+              <th>Lớp / Nhóm cơ</th>
+              <th>HLV / Người tạo</th>
+              <th>Số lượng (Slot)</th>
+              <th>Trạng thái</th>
+              <th>Thao tác (Admin)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dữ liệu mẫu minh họa Admin -->
+            <tr>
+              <td><strong>18:30</strong><br><small>Hôm nay</small></td>
+              <td>Gánh Đùi (Squat Pro)</td>
+              <td>Coach Long</td>
+              <td><span class="slot-badge full">4/4 Full</span></td>
+              <td><span class="status-badge active">Đang mở</span></td>
+              <td class="action-btns">
+                <button class="btn-icon edit" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon delete" title="Hủy lịch"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>19:00</strong><br><small>Ngày mai</small></td>
+              <td>Đẩy Ngực (Bench Press)</td>
+              <td>Gymer Tuấn</td>
+              <td><span class="slot-badge available">1/3 Trống</span></td>
+              <td><span class="status-badge active">Đang mở</span></td>
+              <td class="action-btns">
+                <button class="btn-icon edit" title="Chỉnh sửa"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon delete" title="Hủy lịch"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. KIẾN THỨC GYM PRO (Giao diện Sáng, Dễ đọc) -->
+    <section id="knowledge" class="section">
+      <div class="section-header text-center">
+        <h2 class="section-title">Kiến Thức Tập Luyện Chuẩn Y Khoa</h2>
+      </div>
+
       <div class="grid grid-2">
-        <div class="video-box">
-          <h3><i class="fa-solid fa-play"></i> Video: Phân Tích Cơ Sinh Học Trong Tập Luyện</h3>
-          <div class="responsive-video">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Gymer Knowledge Video" frameborder="0" allowfullscreen></iframe>
+        <div class="card premium-card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="Squat">
+          </div>
+          <div class="card-content">
+            <h3>Barbell Back Squat</h3>
+            <p><strong>Lỗi thường gặp:</strong> Cụp đuôi (Butt wink), chụm gối.</p>
+            <p><strong>Cách sửa:</strong> Tập gồng Core (Valsalva), mở gối theo mũi chân, không xuống quá sâu nếu thiếu cơ động hông.</p>
           </div>
         </div>
 
-        <div class="blog-list">
-          <h3><i class="fa-solid fa-newspaper"></i> Bài Viết Mới Nhất</h3>
-          
-          <article class="blog-item">
-            <h4><a href="#">Hypertrophy vs Strength: Bạn Nên Tập Tăng Cơ Hay Tăng Sức Mạnh?</a></h4>
-            <p class="blog-meta">Tác giả: Coach Pro | Ngày: 17/09/2026</p>
-            <p>Phân tích chi tiết về khoảng Lặp (Reps range), thời gian nghỉ và khối lượng tạ (Volume) để tối ưu hóa mục tiêu...</p>
-          </article>
-
-          <article class="blog-item">
-            <h4><a href="#">Tối Ưu Hóa Cửa Sổ Dinh Dưỡng (Anabolic Window) Sau Buổi Tập</a></h4>
-            <p class="blog-meta">Tác giả: Pro Nutritionist | Ngày: 15/09/2026</p>
-            <p>Thực hư chuyện phải uống Whey ngay lập tức trong vòng 30 phút hay tổng lượng Protein cả ngày mới là yếu tố quyết định?</p>
-          </article>
+        <div class="card premium-card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Bench Press">
+          </div>
+          <div class="card-content">
+            <h3>Barbell Bench Press</h3>
+            <p><strong>Lỗi thường gặp:</strong> Xòe cùi chỏ 90 độ, hông rời khỏi ghế.</p>
+            <p><strong>Cách sửa:</strong> Khép cùi chỏ góc 45-60 độ, ghim chặt 2 bả vai xuống ghế, đạp chân vững (Leg drive).</p>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- 8. MODAL ĐẶT LỊCH KÈO (Dùng cho app.js hiển thị form tạo kèo/đăng ký) -->
+  <!-- MODAL ĐẶT LỊCH (Dùng chung cho JS) -->
   <div id="modal" class="modal hidden" aria-hidden="true">
     <div class="modal-backdrop" data-close></div>
-    <div class="modal-card">
-      <button class="modal-close" data-close>×</button>
+    <div class="modal-content-wrap">
+      <button class="modal-close" data-close><i class="fa-solid fa-xmark"></i></button>
       <div id="modalContent"></div>
     </div>
   </div>
 
-  <!-- 9. FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      GYM BOOKING & PRO FIT · Tập đều · Tập vui · Chuẩn Kỹ Thuật Muscle 💪
+  <footer class="footer-premium">
+    <div class="container text-center">
+      <h3>PRO FIT ACADEMY</h3>
+      <p>Booking Lịch Tập · Tập Chuẩn Form · Kiến Tạo Hình Thể</p>
+      <p class="copyright">&copy; 2026 Developed for Professional Gymers.</p>
     </div>
   </footer>
 
