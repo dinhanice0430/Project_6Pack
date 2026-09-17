@@ -1,259 +1,119 @@
-const STORAGE_KEY = "gym_booking_sessions_v1";
+/* =========================================================
+   STYLE CHO DANH SÁCH KÈO TẬP (SESSION CARDS)
+   ========================================================= */
 
-const seedSessions = [
-  {
-    id: crypto.randomUUID(),
-    title: "Ngực + Tay sau",
-    muscle: "Ngực + Tay sau",
-    date: "2026-09-18",
-    time: "18:30 - 20:00",
-    gym: "Gym Thủ Đức",
-    max: 6,
-    creator: "An",
-    members: ["An", "Minh", "Tuấn"]
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Lưng + Tay trước",
-    muscle: "Lưng + Tay trước",
-    date: "2026-09-19",
-    time: "08:00 - 09:30",
-    gym: "Fit Center Q9",
-    max: 8,
-    creator: "Minh",
-    members: ["Minh", "Hùng"]
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Chân",
-    muscle: "Chân",
-    date: "2026-09-20",
-    time: "17:30 - 19:00",
-    gym: "Gym Thủ Đức",
-    max: 6,
-    creator: "Tuấn",
-    members: ["Tuấn", "Khoa", "Nam", "Long"]
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Full Body",
-    muscle: "Full Body",
-    date: "2026-09-21",
-    time: "18:00 - 19:30",
-    gym: "Fit Center Q9",
-    max: 10,
-    creator: "An",
-    members: ["An"]
-  }
-];
-
-let sessions = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || seedSessions;
-
-const $ = id => document.getElementById(id);
-const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
-
-function formatDate(iso) {
-  const d = new Date(iso + "T00:00:00");
-  return d.toLocaleDateString("vi-VN", { weekday:"short", day:"2-digit", month:"2-digit" });
-}
-function isToday(iso) {
-  const now = new Date();
-  const d = new Date(iso + "T00:00:00");
-  return d.toDateString() === now.toDateString();
-}
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+/* Lưới chứa các card */
+.session-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding-top: 20px;
 }
 
-function renderFilters() {
-  const dates = [...new Set(sessions.map(s => s.date))].sort();
-  const muscles = [...new Set(sessions.map(s => s.muscle))].sort();
-  $("dateFilter").innerHTML = `<option value="all">Tất cả ngày</option>` +
-    dates.map(d => `<option value="${d}">${formatDate(d)}</option>`).join("");
-  $("muscleFilter").innerHTML = `<option value="all">Tất cả nhóm cơ</option>` +
-    muscles.map(m => `<option value="${escapeHTML(m)}">${escapeHTML(m)}</option>`).join("");
+/* Giao diện 1 Thẻ (Card) */
+.session-card {
+    background: var(--bg-white, #ffffff);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color, #E5E7EB);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Animation xuất hiện mượt mà */
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
-function render() {
-  renderFilters();
-  const q = $("searchInput").value.trim().toLowerCase();
-  const date = $("dateFilter").value;
-  const muscle = $("muscleFilter").value;
+/* Tạo độ trễ animation để các card hiện ra lần lượt (Cascade Effect) */
+.session-card:nth-child(1) { animation-delay: 0.1s; }
+.session-card:nth-child(2) { animation-delay: 0.2s; }
+.session-card:nth-child(3) { animation-delay: 0.3s; }
+.session-card:nth-child(4) { animation-delay: 0.4s; }
 
-  const filtered = sessions
-    .filter(s => date === "all" || s.date === date)
-    .filter(s => muscle === "all" || s.muscle === muscle)
-    .filter(s => !q || [s.title, s.muscle, s.gym, s.creator, ...s.members].join(" ").toLowerCase().includes(q))
-    .sort((a,b) => (a.date + a.time).localeCompare(b.date + b.time));
-
-  $("sessionList").innerHTML = filtered.map(cardHTML).join("");
-  $("emptyState").classList.toggle("hidden", filtered.length !== 0);
-
-  $("totalSessions").textContent = sessions.length;
-  $("totalMembers").textContent = sessions.reduce((n,s) => n + s.members.length, 0);
-  $("todaySessions").textContent = sessions.filter(s => isToday(s.date)).length;
+/* Hiệu ứng di chuột (Hover) */
+.session-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary, #E63946);
 }
 
-function cardHTML(s) {
-  const count = s.members.length;
-  const pct = Math.min(100, Math.round(count / s.max * 100));
-  const full = count >= s.max;
-  return `
-    <article class="session-card">
-      <div class="session-top">
-        <span class="tag">${escapeHTML(s.muscle)}</span>
-        <small>${formatDate(s.date)}</small>
-      </div>
-      <h3>${escapeHTML(s.title)}</h3>
-      <div class="meta">
-        <div>⏰ ${escapeHTML(s.time)}</div>
-        <div>📍 ${escapeHTML(s.gym)}</div>
-        <div>👤 Tạo bởi ${escapeHTML(s.creator)}</div>
-      </div>
-      <div class="progress-row"><span>${count}/${s.max} người</span><span>${pct}%</span></div>
-      <div class="progress"><div style="width:${pct}%"></div></div>
-      <div class="card-actions">
-        <button class="btn ${full ? "" : "btn-accent"}" ${full ? "disabled" : ""} onclick="openJoin('${s.id}')">${full ? "Đã đủ người" : "Tham gia"}</button>
-        <button class="icon-btn" title="Xem chi tiết" onclick="openDetail('${s.id}')">•••</button>
-      </div>
-    </article>`;
+/* Tiêu đề & Thông tin trong Card */
+.date-badge {
+    background: var(--bg-light-gray, #EDF2F4);
+    color: var(--text-muted, #6B7280);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
-function openModal(html) {
-  $("modalContent").innerHTML = html;
-  $("modal").classList.remove("hidden");
-  $("modal").setAttribute("aria-hidden", "false");
-}
-function closeModal() {
-  $("modal").classList.add("hidden");
-  $("modal").setAttribute("aria-hidden", "true");
-}
-document.querySelectorAll("[data-close]").forEach(el => el.addEventListener("click", closeModal));
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-
-function openJoin(id) {
-  const s = sessions.find(x => x.id === id);
-  if (!s || s.members.length >= s.max) return;
-  openModal(`
-    <h2>Tham gia kèo 🏋️</h2>
-    <div class="notice">Bạn sẽ được thêm vào danh sách người tham gia của kèo này.</div>
-    <form class="form" onsubmit="joinSession(event, '${id}')">
-      <label>Tên của bạn
-        <input name="name" required maxlength="30" placeholder="Ví dụ: An">
-      </label>
-      <button class="btn btn-accent" type="submit">Xác nhận tham gia</button>
-    </form>
-  `);
+.session-title {
+    font-size: 1.4rem;
+    color: var(--secondary, #1D3557);
+    margin: 5px 0;
 }
 
-function joinSession(e, id) {
-  e.preventDefault();
-  const name = e.target.name.value.trim();
-  const s = sessions.find(x => x.id === id);
-  if (!name || !s) return;
-  if (s.members.length >= s.max) return alert("Kèo đã đủ người.");
-  if (s.members.some(m => m.toLowerCase() === name.toLowerCase())) {
-    return alert("Tên này đã có trong kèo.");
-  }
-  s.members.push(name);
-  save(); closeModal(); render();
+.session-info p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted, #6B7280);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+.session-info i {
+    color: var(--primary, #E63946);
+    width: 16px;
 }
 
-function openDetail(id) {
-  const s = sessions.find(x => x.id === id);
-  if (!s) return;
-  openModal(`
-    <h2>${escapeHTML(s.title)}</h2>
-    <div class="detail-meta">
-      <div>📅 ${formatDate(s.date)}</div>
-      <div>⏰ ${escapeHTML(s.time)}</div>
-      <div>📍 ${escapeHTML(s.gym)}</div>
-      <div>💪 ${escapeHTML(s.muscle)}</div>
-      <div>👥 ${s.members.length}/${s.max} người</div>
-    </div>
-    <strong>Danh sách thành viên</strong>
-    <div class="member-list">${s.members.map(m => `<span class="member">👤 ${escapeHTML(m)}</span>`).join("")}</div>
-    <div class="card-actions">
-      <button class="btn btn-accent" onclick="openJoin('${s.id}')">Tham gia</button>
-      <button class="btn btn-danger" onclick="leaveSession('${s.id}')">Rời kèo</button>
-    </div>
-  `);
+/* Thiết kế Thanh Tiến Độ (Progress Bar) */
+.progress-container {
+    margin-top: 10px;
+}
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark, #1F2937);
+    margin-bottom: 6px;
+}
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: #E5E7EB;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary, #E63946), #FF758F);
+    border-radius: 10px;
+    transition: width 1s ease-in-out; /* Chuyển động thanh màu */
 }
 
-function leaveSession(id) {
-  const s = sessions.find(x => x.id === id);
-  if (!s || !s.members.length) return;
-  const name = prompt("Nhập đúng tên đã đăng ký để rời kèo:");
-  if (!name) return;
-  const idx = s.members.findIndex(m => m.toLowerCase() === name.trim().toLowerCase());
-  if (idx === -1) return alert("Không tìm thấy tên trong danh sách.");
-  s.members.splice(idx, 1);
-  save(); closeModal(); render();
+/* Nút hành động trong Card */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+.w-100 {
+    width: 100%;
+    justify-content: center;
+}
+.icon-btn {
+    padding: 10px 15px;
 }
 
-function openCreate() {
-  const tomorrow = new Date(Date.now() + 86400000);
-  const dateValue = tomorrow.toISOString().slice(0,10);
-  openModal(`
-    <h2>Tạo kèo tập mới ✨</h2>
-    <form class="form" onsubmit="createSession(event)">
-      <label>Nhóm cơ / tên kèo
-        <input name="title" required maxlength="50" placeholder="Ví dụ: Vai + Bắp tay">
-      </label>
-      <label>Nhóm cơ
-        <select name="muscle">
-          <option>Ngực + Tay sau</option><option>Lưng + Tay trước</option>
-          <option>Vai + Bắp tay</option><option>Chân</option>
-          <option>Full Body</option><option>Cardio</option>
-        </select>
-      </label>
-      <label>Ngày tập
-        <input type="date" name="date" required value="${dateValue}">
-      </label>
-      <label>Giờ tập
-        <input name="time" required value="18:00 - 19:30" placeholder="18:00 - 19:30">
-      </label>
-      <label>Địa điểm
-        <input name="gym" required maxlength="60" placeholder="Tên phòng gym">
-      </label>
-      <label>Số người tối đa
-        <input name="max" type="number" min="2" max="50" value="6" required>
-      </label>
-      <label>Tên người tạo
-        <input name="creator" required maxlength="30" placeholder="Tên của bạn">
-      </label>
-      <button class="btn btn-accent" type="submit">Tạo kèo</button>
-    </form>
-  `);
+/* Keyframe Animation mượt mà */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-
-function createSession(e) {
-  e.preventDefault();
-  const f = e.target;
-  const s = {
-    id: crypto.randomUUID(),
-    title: f.title.value.trim(),
-    muscle: f.muscle.value,
-    date: f.date.value,
-    time: f.time.value.trim(),
-    gym: f.gym.value.trim(),
-    max: Number(f.max.value),
-    creator: f.creator.value.trim(),
-    members: [f.creator.value.trim()]
-  };
-  sessions.push(s);
-  save(); closeModal(); render();
-}
-
-$("createBtn").addEventListener("click", openCreate);
-$("searchInput").addEventListener("input", render);
-$("dateFilter").addEventListener("change", render);
-$("muscleFilter").addEventListener("change", render);
-$("resetBtn").addEventListener("click", () => {
-  $("searchInput").value = "";
-  $("dateFilter").value = "all";
-  $("muscleFilter").value = "all";
-  render();
-});
-
-render();
