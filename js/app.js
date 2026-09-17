@@ -277,3 +277,44 @@ document.getElementById('createSessionForm').addEventListener('submit', function
     // Báo thành công
     alert("🎉 Tạo kèo thành công! Kèo của bạn đã xuất hiện trên cùng.");
 });
+// =========================================================
+// 10. CHỨC NĂNG PHÂN QUYỀN ADMIN (SECRET LOGIN TRICK)
+// =========================================================
+
+const logoBtn = document.querySelector('.logo');
+
+// 1. Khi vừa vào web, kiểm tra xem trình duyệt đã lưu quyền Admin chưa
+if (localStorage.getItem('isProFitAdmin') === 'true') {
+    document.body.classList.add('admin-mode');
+}
+
+// 2. Lắng nghe sự kiện NHẤP ĐÚP CHUỘT (Double Click) vào Logo
+logoBtn.addEventListener('dblclick', (e) => {
+    e.preventDefault(); 
+
+    // Nếu đang là Admin rồi -> Hỏi xem có muốn thoát không
+    if (document.body.classList.contains('admin-mode')) {
+        if(confirm("🔒 Bạn có muốn THOÁT quyền Quản trị viên (Admin) không?")) {
+            localStorage.removeItem('isProFitAdmin'); // Xóa bộ nhớ
+            document.body.classList.remove('admin-mode'); // Thu hồi quyền
+            alert("Đã về chế độ Người dùng thường. Bảng quản trị đã bị ẩn.");
+        }
+        return;
+    }
+
+    // Nếu là người dùng thường -> Yêu cầu nhập Mật khẩu
+    const password = prompt("🚨 Khu vực nội bộ. Vui lòng nhập mật khẩu Quản trị viên:");
+    
+    // Mật khẩu bí mật là: admin123 (Bạn có thể đổi tùy ý)
+    if (password === 'admin123') {
+        localStorage.setItem('isProFitAdmin', 'true'); // Lưu vào bộ nhớ trình duyệt
+        document.body.classList.add('admin-mode'); // Cấp quyền hiển thị
+        
+        // Tự động cuộn xuống khu vực Admin cho ngầu
+        document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+        
+        alert("✅ Đăng nhập Quản trị viên thành công! Bảng điều khiển đã được mở.");
+    } else if (password !== null) {
+        alert("❌ Sai mật khẩu! Bạn không có quyền truy cập.");
+    }
+});
